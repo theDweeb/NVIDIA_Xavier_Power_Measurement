@@ -18,11 +18,11 @@ The power calibration will begin immediately and update every 100ms.
 Send POST requests to the following endpoints to start/stop the "under load" power monitoring.
 
 ```
- http://localhost:3000/start
- ```
+http://localhost:3000/start
+```
  
- ```
- http://localhost:3000/stop
- ```
+```
+http://localhost:3000/stop
+```
  
  This can be used externally or sent from within the inference Python or CPP code (TODO: Add examples)
