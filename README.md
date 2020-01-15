@@ -1,8 +1,13 @@
 # NVIDIA Xavier Power Measurement
 Node + Express application derrived from [mbaharan](https://github.com/mbaharan/Tegra_Xavier_TX2_INA_Power_Monitors) who retains all rights.
 
+## Prerequisites:
+* [Nodejs](https://nodejs.org/en/download/) Download the armV8 binaries and extract to /usr/local/
+
 ### To start the server:
+
 ```bash
+npm install # One time install
 node app.js
 ```
 
