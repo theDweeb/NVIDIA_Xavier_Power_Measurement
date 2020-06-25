@@ -18,7 +18,7 @@ node app.js
 cd EfficientNet_Jetson_Inference
 ./inference.sh
 ```
-**This repo only comes with 50 imagenet images, just copy the directory within /image/val/ several times until 1000+ images **
+**This repo only comes with 50 imagenet images, just copy the directory within /image/val/ several times until 1000+ images**
 
 The power calibration will begin immediately and update every 100ms.
 
