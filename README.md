@@ -4,25 +4,24 @@ Node + Express application derrived from [mbaharan](https://github.com/mbaharan/
 ## Prerequisites:
 * [Nodejs](https://nodejs.org/en/download/) Download the armV8 binaries and extract to /usr/local/
 
-### To start the server:
+## To begin, open two terminals
+
+### To start the server and monitor power:
 
 ```bash
 npm install # One time install
 node app.js
 ```
 
+### To run inference tests:
+```bash
+cd EfficientNet_Jetson_Inference
+./inference.sh
+```
+**This repo only comes with 50 imagenet images, just copy the directory within /image/val/ several times until 1000+ images **
+
 The power calibration will begin immediately and update every 100ms.
 
-### Endpoints:
-
-Send POST requests to the following endpoints to start/stop the "under load" power monitoring.
-
-```
-http://localhost:3000/start
-```
+The FPS will be recorded in the models/<DATASET>/ directory
  
-```
-http://localhost:3000/stop
-```
- 
- This can be used externally or sent from within the inference Python or CPP code (TODO: Add examples)
+
