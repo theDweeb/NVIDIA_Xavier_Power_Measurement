@@ -101,35 +101,32 @@ def main():
         crop_pct=1.0 if test_time_pool else config['crop_pct'])
 
     model.eval()
-    topk_ids = []
-    k = min(args.topk, args.num_classes)
-    batch_time = AverageMeter()
-    end = time.time()
 
+    batch_time = AverageMeter()
     with torch.no_grad():
-        r = requests.post(url=start_endpoint)
+        idle_power = requests.post(url=start_endpoint)
+        idle_json = idle_power.json()
         for batch_idx, (input, _) in enumerate(loader):
             input = input.cuda()
-            labels = model(input)
-            topk = labels.topk(k)[1]
-            topk_ids.append(topk.cpu().numpy())
 
-            # measure elapsed time
-			
+            tstart = time.time()
+            output = model(input)
+            tend = time.time()
+
             if batch_idx != 0:
-                batch_time.update(time.time() - end)
+                batch_time.update(tend - tstart)
 
                 if batch_idx % args.log_freq == 0:
-                    print('Predict: [{0}/{1}] Time {batch_time.val:.3f} ({batch_time.avg:.3f})'.format(
+                    print('Predict: [{0}/{1}] Time {batch_time.val:.6f} ({batch_time.avg:.6f})'.format(
                         batch_idx, len(loader), batch_time=batch_time), end='\r')
 
-                        
-            end = time.time()
-
-
-        r = requests.post(url=stop_endpoint)
+    load_power = requests.post(url=stop_endpoint)
+    load_json = load_power.json()
     fps = 1 / batch_time.avg
-    stats = [{'FPS': [float(fps)]}]
+    inference_power = float(load_json['load']) - float(idle_json['idle'])
+    print('idle power = {}  |   load power = {}     |   Inference Power = {}'.format(idle_json['idle'], load_json['load'], inference_power))
+    stats = [{'FPS': [float(fps)]},
+                {'Total_Power': [float(inference_power)]}]
     with open(os.path.join(output_dir, '{}_fps_imagenet.yaml'.format(args.model)), 'w') as f:
         yaml.safe_dump(stats, f)
 
