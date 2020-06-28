@@ -5,6 +5,25 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": ["/home/tecsar/NVIDIA_Xavier_Power_Measurement/EfficientNet_Jetson_Inference/image", "--model", "efficientnet_b0", "--checkpoint", "/home/tecsar/NVIDIA_Xavier_Power_Measurement/EfficientNet_Jetson_Inference/models/ImageNet/B0.pth"]
+        },
+        {
+            "name": "Python: Pyramid Application",
+            "type": "python",
+            "request": "launch",
+            "module": "pyramid.scripts.pserve",
+            "args": [
+                "${workspaceFolder}/development.ini"
+            ],
+            "pyramid": true,
+            "jinja": true
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "platform",
