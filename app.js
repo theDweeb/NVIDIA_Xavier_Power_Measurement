@@ -4,8 +4,7 @@ const app = express();
 const fs = require('fs');
 const path = require('path');
 const open = require('open');
-const shell = require('shelljs')
-
+const shell = require('shelljs');
 
 let capture = false
 let calib = 2
@@ -121,7 +120,7 @@ app.post('/start', (req, res) => {
 	BASELINE_SOC = 0
 	COUNTER_BASELINE_SOC = 0
 	
-	res.end()
+	res.send({idle: powerInfo.TOTAL_BEFORE})
 });
 
 // Stop
@@ -154,8 +153,8 @@ app.post('/stop', (req, res) => {
 
 	POWER_SOC = 0
 	COUNTER_POWER_SOC = 0
-	
-	res.end()
+
+	res.send({load: powerInfo.TOTAL})
 })
 
 app.listen(3000, () => {
