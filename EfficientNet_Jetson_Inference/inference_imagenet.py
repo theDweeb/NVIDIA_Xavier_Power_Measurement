@@ -124,7 +124,6 @@ def main():
     load_json = load_power.json()
     fps = 1 / batch_time.avg
     inference_power = float(load_json['load']) - float(idle_json['idle'])
-    print('idle power = {}  |   load power = {}     |   Inference Power = {}'.format(idle_json['idle'], load_json['load'], inference_power))
     stats = [{'FPS': [float(fps)]},
                 {'Total_Power': [float(inference_power)]}]
     with open(os.path.join(output_dir, '{}_fps_imagenet.yaml'.format(args.model)), 'w') as f:
