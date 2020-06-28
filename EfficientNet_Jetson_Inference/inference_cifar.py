@@ -136,6 +136,8 @@ def main():
 
     load_power = requests.post(url=stop_endpoint)
     load_json = load_power.json()
+    fps = 1 / batch_time.avg
+    inference_power = float(load_json['load']) - float(idle_json['idle'])
     stats = [{'FPS': [float(fps)]},
                 {'Total_Power': [float(inference_power)]}]
     with open(os.path.join(output_dir, '{}_fps_cifar.yaml'.format(args.model)), 'w') as f:
